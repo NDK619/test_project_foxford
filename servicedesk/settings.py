@@ -69,16 +69,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'servicedesk.wsgi.application'
 
+# ТОВАРИЩ!!! ДЛЯ ЗАПУСКА В ДОКЕР - РАССКОМЕНТИРУЙ ЭТО
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'servicedesk_db',
         'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
+
+# ТОВАРИЩ!!! ДЛЯ ЛОКАЛЬНОЙ РАЗРАБОТКИ - РАССКОМЕНТИРУЙ ЭТО
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'servicedesk_db',
+#         'USER': 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
