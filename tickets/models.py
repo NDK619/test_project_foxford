@@ -8,22 +8,25 @@ class Ticket(models.Model):
         ('in_progress', 'In Progress'),
         ('closed', 'Closed'),
     ]
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    operator = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+
+    id = models.BigAutoField(primary_key=True)  # Автоинкрементируемый ID
+    title = models.CharField(max_length=255)  # Название тикета
+    description = models.TextField()  # Описание тикета
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')  # Статус тикета
+    operator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_tickets')  # Оператор тикета (необязательное поле)
+    created_at = models.DateTimeField(auto_now_add=True)  # Дата создания тикета
+    updated_at = models.DateTimeField(auto_now=True)  # Дата последнего обновления тикета
 
     def __str__(self):
         return self.title
 
 
 class Message(models.Model):
-    ticket = models.ForeignKey(Ticket, related_name='messages', on_delete=models.CASCADE)
-    sender = models.CharField(max_length=255)
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    id = models.BigAutoField(primary_key=True)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='messages')  # Связь с тикетом
+    sender = models.CharField(max_length=100)  # Отправитель сообщения
+    text = models.TextField()  # Текст сообщения
+    created_at = models.DateTimeField(auto_now_add=True)  # Дата создания сообщения
 
     def __str__(self):
-        return f"{self.sender}: {self.text[:20]}"
+        return f"Message from {self.sender} in ticket {self.ticket.title}"

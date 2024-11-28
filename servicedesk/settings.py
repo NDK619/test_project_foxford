@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-secret-key-placeholder'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
 # Конфигурация REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',  # Используем AutoSchema от drf-spectacular
+    'DEFAULT_AUTHENTICATION_CLASSES': [],  # Отключаем аутентификацию
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Разрешаем доступ всем без аутентификации
+    ],
 }
 
 MIDDLEWARE = [
@@ -71,29 +75,29 @@ WSGI_APPLICATION = 'servicedesk.wsgi.application'
 
 # ТОВАРИЩ!!! ДЛЯ ЗАПУСКА В ДОКЕР - РАССКОМЕНТИРУЙ ЭТО
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'servicedesk_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
-    }
-}
-
-# ТОВАРИЩ!!! ДЛЯ ЛОКАЛЬНОЙ РАЗРАБОТКИ - РАССКОМЕНТИРУЙ ЭТО
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'servicedesk_db',
 #         'USER': 'postgres',
-#         'PASSWORD': '1234',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'db',
+#         'PORT': 5432,
 #     }
 # }
+
+# ТОВАРИЩ!!! ДЛЯ ЛОКАЛЬНОЙ РАЗРАБОТКИ - РАССКОМЕНТИРУЙ ЭТО
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'servicedesk_db',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

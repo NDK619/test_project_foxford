@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    permission_classes = [IsAuthenticated]  # Для тестирования можно использовать AllowAny
+    permission_classes = [AllowAny]  # Для тестирования можно использовать AllowAny
 
 
 class MessageViewSet(viewsets.ModelViewSet):
